@@ -1,0 +1,26 @@
+Both files are in the db folder
+
+File: index.js
+
+import { Pool } from 'pg'
+ 
+const pool = new Pool({
+  user: 'postgres',
+  host: 'localhost',
+  database: 'ppeapp',
+  password: 'reksa21604',
+  port: 5432,
+})
+ 
+export const query = (text, params) => pool.query(text, params);
+
+
+File: db.sql
+
+Create a first table to test
+
+CREATE TABLE testtable (
+  id INT, 
+  nameofthetrend VARCHAR(50),
+  trend INT
+);

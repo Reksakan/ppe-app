@@ -1,0 +1,17 @@
+
+SQL tables.
+
+index_data (Main indexs table).
+1. index_id - format: 202301, 202211, etc - Primary_key;
+2. index_value - format: 99.1; 101.5; etc;
+3. last_update - format: DATE; тут можно было это перенести в таблицу 2, но тренд обновляется за весь период только один раз в самом начале. Потом просто добавляются/коррекируются последние несколько месяцевю 
+4. index_name_id - Foreign_key;
+
+
+index_description (Secondary table).
+1. index_name_id - primary_key;
+2. source_name - Format: String with small letters like bls, statcan, eurostat, etc; 
+3. base_year:2015, 2010, 2000, etc; - базовый год - год относительно которого посчитан тренд - информативный характер;
+4. index_level - Текст "main" или "secondary";
+6. index_level_id - тут по сути index_name_id только для  индексов, у которых поле index_level = "secondary";
+5. notes - any notes the user should be aware of regarding the index. 
