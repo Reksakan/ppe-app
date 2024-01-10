@@ -72,3 +72,13 @@ app.get("/getBlsTrends/:id", async (req, res) => {
 app.post("/getBlsTrends", (req, res) => {
   console.log(req.body)
 })
+
+//Post trends inside the database
+app.post("/getBlsTrends", (req, res) => {
+  console.log(req.body)
+})
+
+//Post trends inside the database
+app.post("/getBlsTrends", (req, res) => {
+  console.log(req.body)
+})
