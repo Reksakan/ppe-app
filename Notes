@@ -15,3 +15,20 @@ index_description (Secondary table).
 4. index_level - Текст "main" или "secondary";
 6. index_level_id - тут по сути index_name_id только для  индексов, у которых поле index_level = "secondary";
 5. notes - any notes the user should be aware of regarding the index. 
+
+
+
+BLS.
+
+API key is: 4384cf67934742af9771cb1f352e1075.
+
+*This is an automated message. Please do not respond to this message.*
+
+Link
+https://www.bls.gov/developers/home.htm
+
+BLS Public Data API Signatures
+https://www.bls.gov/developers/api_signature_v2.htm
+
+
+Video how to fetch data from BLS.gov. 

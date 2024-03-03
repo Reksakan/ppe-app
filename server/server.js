@@ -55,7 +55,7 @@ app.get("/getBlsTrends", async (req, res) => {
 app.get("/getBlsTrends/:id", async (req, res) => {
   console.log(req.params.id)
   try {
-    const results = await db.query(`select * from index_data where index_name_id = ${req.params.id}`);
+    const results = await db.query("select * from index_data where index_name_id = $1", [req.params.id]);
     res.status(200).json({
       status: "success",
       results: results.rows.length,
@@ -69,16 +69,24 @@ app.get("/getBlsTrends/:id", async (req, res) => {
 })
 
 //Post trends inside the database
-app.post("/getBlsTrends", (req, res) => {
-  console.log(req.body)
+app.post("/getBlsTrends", async (req, res) => {
+  try {
+    const results = await db.query("INSERT INTO index_data (index_date, index_value, index_update, index_name_id, index_base_year) VALUES ($1, $2, $3, $4, $5) returning *", [
+      req.body.index_date,
+      req.body.index_value,
+      req.body.index_update,
+      req.body.index_name_id,
+      req.body.index_base_year,
+    ]);
+    res.status(201).json({
+      status: "success",
+      results: results.rows.length,
+      data: {
+        index_lake: results.rows,
+      }
+    })
+  } catch(err) {
+    console.log(err)
+  }
 })
 
-//Post trends inside the database
-app.post("/getBlsTrends", (req, res) => {
-  console.log(req.body)
-})
-
-//Post trends inside the database
-app.post("/getBlsTrends", (req, res) => {
-  console.log(req.body)
-})
