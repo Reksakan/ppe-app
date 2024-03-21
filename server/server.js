@@ -1,4 +1,5 @@
 import express from 'express';
+import fetch from 'node-fetch'; //delete
 import bodyParser  from 'body-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -36,57 +37,96 @@ app.listen(port, ()=> console.log(`Server is running at the ${port}`));
 // ??? Think how you should create an additional file for the following below
 
 //Fetch entire database trends
-app.get("/getBlsTrends", async (req, res) => {
-  try {
-    const results = await db.query("select * from index_data");
-    res.status(200).json({
-      status: "success",
-      results: results.rows.length,
-      data: {
-        index_lake: results.rows,
-      }
-    })
-  } catch (err) {
-    console.log(err);
-  }
-})
+// app.get("/getBlsTrends", async (req, res) => {
+//   try {
+//     const results = await db.query("select * from index_data");
+//     res.status(200).json({
+//       status: "success",
+//       results: results.rows.length,
+//       data: {
+//         index_lake: results.rows,
+//       }
+//     })
+//   } catch (err) {
+//     console.log(err);
+//   }
+// })
 
-//Fetch certain trend by id. But then it should be fetched by name. 
-app.get("/getBlsTrends/:id", async (req, res) => {
-  console.log(req.params.id)
-  try {
-    const results = await db.query("select * from index_data where index_name_id = $1", [req.params.id]);
-    res.status(200).json({
-      status: "success",
-      results: results.rows.length,
-      data: {
-        index_lake: results.rows,
-      }
-    })
-  } catch (err) {
-    console.log(err);
-  }
-})
+// //Fetch certain trend by id. But then it should be fetched by name. 
+// app.get("/getBlsTrends/:id", async (req, res) => {
+//   console.log(req.params.id)
+//   try {
+//     const results = await db.query("select * from index_data where index_name_id = $1", [req.params.id]);
+//     res.status(200).json({
+//       status: "success",
+//       results: results.rows.length,
+//       data: {
+//         index_lake: results.rows,
+//       }
+//     })
+//   } catch (err) {
+//     console.log(err);
+//   }
+// })
 
-//Post trends inside the database
-app.post("/getBlsTrends", async (req, res) => {
-  try {
-    const results = await db.query("INSERT INTO index_data (index_date, index_value, index_update, index_name_id, index_base_year) VALUES ($1, $2, $3, $4, $5) returning *", [
-      req.body.index_date,
-      req.body.index_value,
-      req.body.index_update,
-      req.body.index_name_id,
-      req.body.index_base_year,
-    ]);
-    res.status(201).json({
-      status: "success",
-      results: results.rows.length,
-      data: {
-        index_lake: results.rows,
-      }
-    })
-  } catch(err) {
-    console.log(err)
-  }
-})
+// //Post trends inside the database
+// app.post("/getBlsTrends", async (req, res) => {
+//   try {
+//     const results = await db.query("INSERT INTO index_data (index_date, index_value, index_update, index_name_id, index_base_year) VALUES ($1, $2, $3, $4, $5) returning *", [
+//       req.body.index_date,
+//       req.body.index_value,
+//       req.body.index_update,
+//       req.body.index_name_id,
+//       req.body.index_base_year,
+//     ]);
+//     res.status(201).json({
+//       status: "success",
+//       results: results.rows.length,
+//       data: {
+//         index_lake: results.rows,
+//       }
+//     })
+//   } catch(err) {
+//     console.log(err)
+//   }
+// })
 
+//experiment
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  next();
+});
+
+app.post('/bls-data', async (req, res) => {
+  const API_URL = "https://api.bls.gov/publicAPI/v2/timeseries/data/";
+  const API_KEY = "39aad16af22848e5bba54253472c8433";
+  console.log('triggered');
+
+  const requestData = {
+    seriesid: ["LEU0254555900", "APU0000701111"],
+    startyear: "2002",
+    endyear: "2012",
+  };
+
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
+      body: JSON.stringify(requestData),
+      "registrationkey": API_KEY,
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch data from the server");
+    }
+
+    const responseData = await response.json();
+    res.json(responseData);
+  } catch (error) {
+    console.error('Error:', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
