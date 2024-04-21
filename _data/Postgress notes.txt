@@ -1,0 +1,3 @@
+Database superuser (postgres).
+password: reksa 21604
+port 5432

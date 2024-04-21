@@ -3,7 +3,9 @@ import React from 'react'
 const Home = () => {
   // following should be moved to backend. 
 
-const PROXY_URL = "http://localhost:5001/bls-data"; // Adjust the URL as needed
+const PROXY_URL = "http://localhost:5001/bls-api"; // Adjust the URL as needed
+const PROXY_URL_SERVER = "http://localhost:5001/bls-data"; // Adjust the URL as needed
+const PROXY_URL_SERVER_1 = "http://localhost:5001/bls-data-sent"; // Adjust the URL as needed
 
 const getBlsData = async () => {
   try {
@@ -14,46 +16,69 @@ const getBlsData = async () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        seriesid: ["LEU0254555900", "APU0000701111"],
-        startyear: "2002",
-        endyear: "2012",
+        seriesid: ["PCU1133--1133--"],
+        startyear: "2015",
+        endyear: "2024",
       }),
     });
 
     if (!response.ok) {
       throw new Error("Failed to fetch data from the server");
     }
-
     const responseData = await response.json();
-    console.log('Response Data:', responseData);
+    console.log('responseData: ', responseData)  // Delete after all
   } catch (error) {
     console.error('Error:', error.message);
   }
 };
-  //Working variant
-  // const URL = "https://api.bls.gov/publicAPI/v2/timeseries/data/SUUR0000SA0/";
-  // const URL = "https://api.bls.gov/publicAPI/v2/timeseries/data/seriesid=LEU0254555900";
-  
-  // const getBlsData = async () => {
 
-  //   try{
-  //     const response = await fetch(URL);
-  //     if(!response.ok){
-  //       throw new Error("Could not getch resource");
-  //     }
+const getDataFromServer = async () => {
+  try {
+    const response = await fetch(PROXY_URL_SERVER);
+    if (!response.ok) {
+      throw new Error("Failed to fetch data from the server");
+    }
 
-  //     const output = await response.json();
-  //     console.log('output: ', output);
-  //   } 
-  //   catch(error){
-  //     console.log(error)
-  //   }
-  // };
+    const responseData = await response.json();
+    console.log('responseData: ', responseData)  // Delete after all
+  } catch (error) {
+    console.error('Error:', error.message);
+  }
+};
+
+const sendDataToServer = async () => {
+  try {
+    const response = await fetch(PROXY_URL_SERVER, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        trended_series_id: '04456465554',
+        trend_year: '2001',
+        trend_period: 'May',
+        trend_value: 99.1,
+        trend_footnote_codes: 'P'
+      })
+    })
+    
+    if (!response.ok) {
+      throw new Error("Failed to fetch data from the server");
+    }
+    const responseData = await response.json();
+    console.log('recoreded trend: ', responseData)  // Delete after all
+  } catch (err) {
+    console.log('Error: ', err.message)
+  }
+}
 
   return (
     <>
       <div>Home</div>
       <button onClick={getBlsData}>Fetch</button>
+      <button onClick={getDataFromServer}>Get data from server</button>
+      <button onClick={sendDataToServer}>Send data from server</button>
     </>
     
   )
