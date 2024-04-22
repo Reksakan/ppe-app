@@ -1,6 +1,6 @@
 exports.up = function(knex) {
     return knex.schema.createTable('bls_trends_data', (table) => {
-        table.increments();
+        table.uuid('uuidColumn').defaultTo(knex.fn.uuid());
         table.string('name');
     })
 };
