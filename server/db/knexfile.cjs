@@ -9,7 +9,7 @@ const { knexSnakeCaseMappers } = require('objection');
 
 module.exports = {
   development: {
-    client: 'postgresql',
+    client: 'postgresql', 
     connection: {
       database: 'ppe',
       user:     'postgres',

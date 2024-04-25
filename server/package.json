@@ -10,7 +10,8 @@
     "seed": "npx knex seed:run --knexfile ./db/knexfile.cjs",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "knex": "knex --knexfile ./db/knexfile.cjs"
   },
   "keywords": [],
   "author": "",

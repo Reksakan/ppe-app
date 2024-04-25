@@ -4,16 +4,10 @@ exports.seed = async function(knex) {
 
     await knex('bls_trends_data').insert([
         {
-            id: 1,
-            name: 'askerio'
-        },
-        {
-            id: 2,
-            name: 'askerio'
-        },
-        {
-            id: 3,
-            name: 'askerio'
-        },
+            "series_id": "PCU1133--1133--",
+            "year": 1998,
+            "period": "M01",
+            "value": 192.3
+          },
     ])
 };
