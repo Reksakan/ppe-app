@@ -7,13 +7,10 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import * as db from "./db/index.js";
 
-
-
-
 import homeRoutes from './routes/home.js';
 import fetchingRoutes from './routes/fetching.js';
 import analysisRoutes from './routes/analysis.js';
-import downloadRoutes from './routes/download.js';
+
 
 /* CONFIGURATIONS*/
 dotenv.config();
@@ -30,10 +27,19 @@ app.use(cors());
 /* ROUTES */
 app.use("/home", homeRoutes);          // User authentication / about the site / what kind of products we have: ppi trends / market data / cost new
 app.use("/fetching", fetchingRoutes);    // For now, ppi only from www.bls.gov and www.statcan.ca; fetching trends and show the status of latest updates/trends availability.
-app.use("/statistic", analysisRoutes);  // Different graphs to show the trends behaivour and comparision bw each other.
-app.use("/download", downloadRoutes);  //Trends download options.
+app.use("/analysis", analysisRoutes);  // Structure should be like a client in dashboard
 
 
+
+
+
+
+
+
+
+
+/* TEST AREA */
+/* This section should go to separate files - START*/
 const port = process.env.PORT || 3000;
 app.listen(port, ()=> console.log(`Server is running at the ${port}`));
 
@@ -64,18 +70,16 @@ app.post('/bls-api', async (req, res) => {
 
 app.get("/bls-data", async (req, res) => {
   try {
-    const results = await db.query("select * from test_table");
+    const results = await db.query("select * from bls_trends_description");
     res.status(200).json({
       status: "success",
-      results: results.rows.length,
-      data: {
-        index_lake: results.rows,
-      }
+      results: results,
     })
   } catch (err) {
     console.log(err);
   }
 })
+
 app.post("/bls-data", async (req, res) => {
   // console.log("request body from frontend: ", req.body)
   try {
@@ -95,3 +99,5 @@ app.post("/bls-data", async (req, res) => {
     console.log(err)
   }
 })
+
+/* This section should go to separate files - END*/

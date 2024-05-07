@@ -7,6 +7,7 @@
   "scripts": {
     "make-seed": "npx knex seed:make dev --knexfile ./db/knexfile.cjs",
     "migrate": "npx knex migrate:latest --knexfile ./db/knexfile.cjs",
+    "migrate_down": "npx knex migrate:down --knexfile ./db/knexfile.cjs",
     "seed": "npx knex seed:run --knexfile ./db/knexfile.cjs",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",

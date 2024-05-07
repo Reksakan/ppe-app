@@ -7,6 +7,7 @@ const PROXY_URL = "http://localhost:5001/bls-api"; // Adjust the URL as needed
 const PROXY_URL_SERVER = "http://localhost:5001/bls-data"; // Adjust the URL as needed
 const PROXY_URL_SERVER_1 = "http://localhost:5001/bls-data-sent"; // Adjust the URL as needed
 
+//Get data from BLS Web site. Do not delete this as it's working. 
 const getBlsData = async () => {
   try {
     const response = await fetch(PROXY_URL, {
@@ -26,12 +27,12 @@ const getBlsData = async () => {
       throw new Error("Failed to fetch data from the server");
     }
     const responseData = await response.json();
-    console.log('responseData: ', responseData)  // Delete after all
   } catch (error) {
     console.error('Error:', error.message);
   }
 };
 
+//retrieve data from Data Base
 const getDataFromServer = async () => {
   try {
     const response = await fetch(PROXY_URL_SERVER);
@@ -46,6 +47,7 @@ const getDataFromServer = async () => {
   }
 };
 
+//Record data to db
 const sendDataToServer = async () => {
   try {
     const response = await fetch(PROXY_URL_SERVER, {
