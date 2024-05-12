@@ -7,6 +7,8 @@ import { createTheme } from '@mui/material/styles'
 
 import Home from 'scenes/home';
 import Layout from 'scenes/layout';
+import Overview from 'scenes/overview';
+import Graphs from 'scenes/graphs';
 
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
             {/* In case you want to add authenticaiton */}
               <Route path="/" element={<Navigate to="/home" replace />} />  
               <Route path="/home" element={< Home/>} />
+              <Route path="/overview" element={< Overview/>} />
+              <Route path="/graphs" element={< Graphs/>} />
             </Route>
           </Routes>
         </ThemeProvider>
