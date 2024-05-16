@@ -10,6 +10,7 @@ import * as db from "./db/index.js";
 import homeRoutes from './routes/home.js';
 import fetchingRoutes from './routes/fetching.js';
 import analysisRoutes from './routes/analysis.js';
+import ppiRoutes from './routes/ppi.js';
 
 
 /* CONFIGURATIONS*/
@@ -25,7 +26,14 @@ app.use(cors());
 
 
 /* ROUTES */
+app.get("/", (req, res, next) => {
+  res.send("Hello workld!")
+});
+app.use(express.static("public"));
 app.use("/home", homeRoutes);          // User authentication / about the site / what kind of products we have: ppi trends / market data / cost new
+app.use("/ppi", ppiRoutes) //page of PPI indexes by countries: BLS, StatCan, Eurostat
+
+/* Below two routes to revise. Fetching might be needed, but analysis? */
 app.use("/fetching", fetchingRoutes);    // For now, ppi only from www.bls.gov and www.statcan.ca; fetching trends and show the status of latest updates/trends availability.
 app.use("/analysis", analysisRoutes);  // Structure should be like a client in dashboard
 

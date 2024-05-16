@@ -67,7 +67,8 @@ const Sidebar = ({
     useEffect(()=> {
         setActive(pathname.substring(1));
     }, [pathname])
-  return (
+  
+    return (
     <Box component="nav">
         {isSidebarOpen && (
             <Drawer 
