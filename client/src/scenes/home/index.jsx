@@ -5,7 +5,7 @@ const Home = () => {
 
 const PROXY_URL = "http://localhost:5001/bls-api"; // Adjust the URL as needed
 const PROXY_URL_SERVER = "http://localhost:5001/bls-data"; // Adjust the URL as needed
-const PROXY_URL_SERVER_1 = "http://localhost:5001/bls-data-sent"; // Adjust the URL as needed
+
 
 //Get data from BLS Web site. Do not delete this as it's working. 
 const getBlsData = async () => {

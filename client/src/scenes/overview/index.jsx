@@ -12,16 +12,17 @@ import {
   useMediaQuery 
 } from "@mui/material";
 import Header from "components/Header";
-import { useGetTrendsListQuery } from "state/api"
+import { useGetTrendsListQuery } from "state/api";
 
 const TrendsPPI = ({
-  ppi_id,
-  ppi_name,
-  ppi_description,
-  ppi_website,
-  ppi_industries_number,
-  ppi_data_earliest_year,
-  ppi_notes,
+  key,
+  _id,
+  name,
+  description,
+  website,
+  industries_number,
+  data_earliest_year,
+  notes,
 }) => {
   const theme = useTheme();
   const [ isExpanded, setIsExpanded ] = useState(false);
@@ -36,7 +37,7 @@ const TrendsPPI = ({
     >
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color={theme.palette.secondary[700]} gutterBottom>
-          www.bls.gov
+          {website}
         </Typography>
         <Typography variant="h5" component="div">
           PPI US
@@ -44,7 +45,7 @@ const TrendsPPI = ({
         <Typography sx={{ mb: "1.5rem "}} color={theme.palette.secondary[400]}>
           US$
         </Typography>
-        <Typography variant="body2">BLS Trends is widly used for the majority of computer tech and software</Typography>
+        <Typography variant="body2">{description}</Typography>
       </CardContent>
       <CardActions>
         <Button
@@ -75,12 +76,50 @@ const TrendsPPI = ({
 
 const Overview = () => {
   const { data, isLoading } = useGetTrendsListQuery();
+  const isNonMobile = useMediaQuery("(min-width: 1000px)");
   console.log('data: ', data)  //delete
   
   return (
-    <>
+    <Box m="1.5rem 2.5rem">
+      <Header title="PPI LIST" subtitle="See your list of PPIs." />
+      {/* {data || isLoading ? (
+        <Box
+          mt="20px" 
+          display="grid" 
+          gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+          justifyContent="space-between"
+          rowGap="20px"
+          columnGap="1.33%"
+          sx={{
+            "& > div": { gridColumn: isNonMobile ? undefined : "span 4"},
+          }}
+        >
+          {data.results.rows.map(({
+            ppi_id,
+            ppi_name,
+            ppi_description,
+            ppi_website,
+            ppi_industries_number,
+            ppi_data_earliest_year,
+            ppi_notes,
+          }) => (
+            <TrendsPPI 
+            key={ppi_id}
+            _id={ppi_id}
+            name={ppi_name}
+            description={ppi_description}
+            website={ppi_website}
+            industries_number={ppi_industries_number}
+            earliest_year={ppi_data_earliest_year}
+            notes={ppi_notes}
+            />
+          ))}
+        </Box>
+      ) : (
+        <>Loading...</>
+      )} */}
       <TrendsPPI />
-    </>
+    </Box>
     
   )
 }
