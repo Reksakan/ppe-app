@@ -37,13 +37,13 @@ const TrendsPPI = ({
     >
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color={theme.palette.secondary[700]} gutterBottom>
-          {website}
+          Statistic
         </Typography>
         <Typography variant="h5" component="div">
-          PPI US
+          {name}
         </Typography>
         <Typography sx={{ mb: "1.5rem "}} color={theme.palette.secondary[400]}>
-          US$
+          {website}
         </Typography>
         <Typography variant="body2">{description}</Typography>
       </CardContent>
@@ -65,10 +65,10 @@ const TrendsPPI = ({
         }}
       >
         <CardContent>
-          <Typography>id: {1}</Typography>
-          <Typography>Number of trends: 1545</Typography>
-          <Typography>Earliest date available: March 1980</Typography>
-          <Typography>Notes: What is a great weather</Typography>
+          <Typography>id: {_id}</Typography>
+          <Typography>Number of industries: {industries_number}</Typography>
+          <Typography>Earliest date available: {data_earliest_year}</Typography>
+          <Typography>Notes: {notes}</Typography>
         </CardContent>
       </Collapse>
     </Card>
@@ -77,12 +77,12 @@ const TrendsPPI = ({
 const Overview = () => {
   const { data, isLoading } = useGetTrendsListQuery();
   const isNonMobile = useMediaQuery("(min-width: 1000px)");
-  console.log('data: ', data)  //delete
+  console.log('data:', data)  //delete
   
   return (
     <Box m="1.5rem 2.5rem">
       <Header title="PPI LIST" subtitle="See your list of PPIs." />
-      {/* {data || isLoading ? (
+      {data || isLoading ? (
         <Box
           mt="20px" 
           display="grid" 
@@ -94,7 +94,7 @@ const Overview = () => {
             "& > div": { gridColumn: isNonMobile ? undefined : "span 4"},
           }}
         >
-          {data.results.rows.map(({
+          {data.output.rows.map(({
             ppi_id,
             ppi_name,
             ppi_description,
@@ -117,8 +117,7 @@ const Overview = () => {
         </Box>
       ) : (
         <>Loading...</>
-      )} */}
-      <TrendsPPI />
+      )}
     </Box>
     
   )

@@ -5,16 +5,23 @@ export const api = createApi({
     reducerPath: "adminApi",
     tagTypes: [
         "Overview",
+        "Graphs",
     ],
     endpoints: (build) => ({
-        
         getTrendsList: build.query({
             query: () => "ppi/overview",
             providesTags: ["Overview"],
+        })
+    }),
+    endpoints: (build) => ({
+        getPpiList: build.query({
+            query: () => "ppi/graphs",
+            providesTags: ["Graphs"],
         })
     })
 })
 
 export const {
     useGetTrendsListQuery,
+    useGetPpiListQuery,
 } = api;

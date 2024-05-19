@@ -78,7 +78,7 @@ const sendDataToServer = async () => {
   return (
     <>
       <div>Home</div>
-      <button onClick={getBlsData}>Fetch</button>
+      <button onClick={getBlsData}>Fetch from BLS Website</button>
       <button onClick={getDataFromServer}>Get data from server</button>
       <button onClick={sendDataToServer}>Send data from server</button>
     </>
