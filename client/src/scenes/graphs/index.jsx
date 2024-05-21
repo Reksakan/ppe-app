@@ -5,7 +5,8 @@ import { useGetPpiListQuery } from "state/api";
 
 const Graphs = () => {
   const { data, isLoading } = useGetPpiListQuery();
-  console.log('data: ', data);
+  console.log('data: ', data); //DELETE
+  
   // const [ ppiBls, setPpiBls ] = useState("units");
   // const viewOptions = ["units", "sales", "morning", "evening", "apple", "bananas"]
   // return (

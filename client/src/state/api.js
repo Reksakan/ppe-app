@@ -11,9 +11,7 @@ export const api = createApi({
         getTrendsList: build.query({
             query: () => "ppi/overview",
             providesTags: ["Overview"],
-        })
-    }),
-    endpoints: (build) => ({
+        }),
         getPpiList: build.query({
             query: () => "ppi/graphs",
             providesTags: ["Graphs"],
@@ -21,7 +19,4 @@ export const api = createApi({
     })
 })
 
-export const {
-    useGetTrendsListQuery,
-    useGetPpiListQuery,
-} = api;
+export const { useGetTrendsListQuery, useGetPpiListQuery} = api;

@@ -82,7 +82,7 @@ const Overview = () => {
   return (
     <Box m="1.5rem 2.5rem">
       <Header title="PPI LIST" subtitle="See your list of PPIs." />
-      {data || isLoading ? (
+      {data || !isLoading ? (
         <Box
           mt="20px" 
           display="grid" 
@@ -94,7 +94,7 @@ const Overview = () => {
             "& > div": { gridColumn: isNonMobile ? undefined : "span 4"},
           }}
         >
-          {data.output.rows.map(({
+          {data.rows.map(({
             ppi_id,
             ppi_name,
             ppi_description,
